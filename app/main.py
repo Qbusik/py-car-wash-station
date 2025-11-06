@@ -34,14 +34,10 @@ class CarWashStation:
             car.clean_mark = self.clean_power
 
     def rate_service(self, rating: float) -> None:
-        rating_list = [
-            self.average_rating for _ in range(self.count_of_ratings)
-        ]
-        rating_list.append(rating)
-        self.count_of_ratings += 1
         self.average_rating = (
-            round(sum(rating_list) / self.count_of_ratings, 1)
-        )
+            round((self.average_rating * self.count_of_ratings + rating)
+                  / (self.count_of_ratings + 1), 1))
+        self.count_of_ratings += 1
 
     def serve_cars(self, cars: list[Car]) -> float:
         cars_to_wash = [
